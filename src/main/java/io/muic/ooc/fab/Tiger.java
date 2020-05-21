@@ -1,15 +1,15 @@
 package io.muic.ooc.fab;
 
-import java.util.List;
 import java.util.Iterator;
-import java.util.Random;
+import java.util.List;
 
-public class Fox extends Animal {
+public class Tiger extends Animal {
     // Characteristics shared by all foxes (class variables).
 
     // The food value of a single rabbit. In effect, this is the
     // number of steps a fox can go before it has to eat again.
-    private static final int RABBIT_FOOD_VALUE = 9;
+    private static final int RABBIT_FOOD_VALUE = 4;
+    private static final int FOX_FOOD_VALUE = 8;
 
     // Individual characteristics (instance fields).
     // The fox's food level, which is increased by eating rabbits.
@@ -85,6 +85,14 @@ public class Fox extends Animal {
                     return where;
                 }
             }
+            else if (animal instanceof Fox) {
+                Fox fox = (Fox) animal;
+                if (fox.isAlive()) {
+                    fox.setDead();
+                    foodLevel = FOX_FOOD_VALUE;
+                    return where;
+                }
+            }
         }
         return null;
     }
@@ -92,12 +100,12 @@ public class Fox extends Animal {
 
     @Override
     protected int getmax_age() {
-        return 150;
+        return 200;
     }
 
     @Override
     protected double getBreedingProp() {
-        return 0.08;
+        return 0.05;
     }
 
     @Override
@@ -107,7 +115,7 @@ public class Fox extends Animal {
 
     @Override
     protected int getBreedingAge() {
-        return 15;
+        return 30;
     }
 
 
