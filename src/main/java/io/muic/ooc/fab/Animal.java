@@ -37,7 +37,7 @@ public abstract class Animal {
         }
     }
 
-    protected Animal breed(boolean randomAge,Field field, Location location){
+    protected Animal breed(Field field, Location location){
         return AnimalFactory.createAnimal(this.getClass(), field, location);
     }
 
@@ -49,7 +49,7 @@ public abstract class Animal {
         int births = breed();
         for (int b = 0; b < births && free.size() > 0; b++) {
             Location loc = free.remove(0);
-            Animal young = breed(false, field, loc);
+            Animal young = breed(field, loc);
             newAnimals.add(young);
         }
     }
