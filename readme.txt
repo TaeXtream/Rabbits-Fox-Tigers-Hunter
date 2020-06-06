@@ -1,4 +1,4 @@
 /**
- * @author David J. Barnes and Michael K?lling
- * @version 2016.02.29
+ * @author TaeXteame Base on the work of David J. Barnes and Michael K?lling
+ * @version 2020.06.06
  */
