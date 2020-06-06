@@ -5,10 +5,11 @@ import java.util.Map;
 
 public class AnimalFactory {
 
-    private static Map<AnimalType, Class> animalClassMap = new HashMap<AnimalType, Class>() {{
+
+    private static final Map<AnimalType, Class> animalClassMap = new HashMap<AnimalType, Class>() {{
         AnimalType[] animalTypes = AnimalType.values();
-        for (int i = 0; i < animalTypes.length; i++) {
-            put(animalTypes[i], animalTypes[i].getAnimalClass());
+        for (AnimalType animalType : animalTypes) {
+            put(animalType, animalType.getAnimalClass());
         }
     }};
 

@@ -7,10 +7,10 @@ import java.util.Random;
 
 public class FieldPopulator {
 
-    private Map<AnimalType, Double> propbailityMap = new HashMap<AnimalType, Double>() {{
+    private final Map<AnimalType, Double> propbailityMap = new HashMap<AnimalType, Double>() {{
         AnimalType[] animalTypes = AnimalType.values();
-        for (int i = 0; i < animalTypes.length; i++) {
-            put(animalTypes[i], animalTypes[i].getbreedingProbability());
+        for (AnimalType animalType : animalTypes) {
+            put(animalType, animalType.getbreedingProbability());
         }
     }};
 
@@ -19,7 +19,7 @@ public class FieldPopulator {
 
 
     /**
-     * Randomly populate the field with foxes and rabbits.
+     * Randomly populate the field with Animals.
      */
     public void populate(Field field, List<Animal> animals) {
 
