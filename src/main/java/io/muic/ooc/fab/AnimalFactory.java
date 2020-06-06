@@ -25,10 +25,7 @@ public class AnimalFactory {
                 animal.initialize(true, field, location);
                 return animal;
             }
-            catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
-            catch (InstantiationException e){
+            catch (IllegalAccessException | InstantiationException e) {
                 e.printStackTrace();
             }
         }
