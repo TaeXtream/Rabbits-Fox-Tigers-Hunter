@@ -7,13 +7,9 @@ import java.util.List;
 
 public class Hunter extends Entity {
 
-    @Override
-    public void initialize(Field field, Location location) {
-        super.initialize(field, location);
-    }
 
     @Override
-    public void behavior(List<Animal> newAnimals) {
+    public void behavior(List<Entity> newAnimals) {
         if(this.isAlive()){
             Location nextLocation = moveToNewLocation();
             if (nextLocation != null) {

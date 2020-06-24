@@ -6,17 +6,18 @@ import io.muic.ooc.fab.Location;
 import java.util.List;
 
 public abstract class Entity {
-    private boolean alive = true;
+    private boolean alive;
     private Location location;
     // The field occupied.
     protected Field field;
 
-    public void initialize(Field field, Location location) {
+    public void initialize(boolean randomAge, Field field, Location location) {
         this.field = field;
+        alive = true;
         setLocation(location);
     }
 
-    public abstract void behavior(List<Animal> newAnimals);
+    public abstract void behavior(List<Entity> newEntities);
 
     protected abstract Location moveToNewLocation();
 
@@ -42,21 +43,21 @@ public abstract class Entity {
      *
      * @param newLocation The rabbit's new location.
      */
-    protected void setLocation(Location newLocation) {
+    public void setLocation(Location newLocation) {
         if (location != null) {
             field.clear(location);
         }
+
         this.location = newLocation;
-        field.place(this, newLocation);
+        field.place(this, location);
     }
 
-    protected void setLocation(int row, int col) {
-        Location newLocation = new Location(row, col);
-        if (this.location != null) {
-            field.clear(this.location);
+    public void setLocation(int row, int col) {
+        if (location != null) {
+            field.clear(location);
         }
-        this.location = newLocation;
-        field.place(this, newLocation);
+        this.location = new Location(row, col);
+        field.place(this, location);
     }
 
     /**

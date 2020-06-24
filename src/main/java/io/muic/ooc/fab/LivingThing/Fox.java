@@ -1,28 +1,14 @@
 package io.muic.ooc.fab.LivingThing;
 
-import io.muic.ooc.fab.Field;
-import io.muic.ooc.fab.Location;
 
 import java.util.List;
 
 public class Fox extends Animal {
     // Characteristics shared by all foxes (class variables).
-
-
-    /**
-     * Create a fox. A fox can be created as a new born (age zero and not
-     * hungry) or with a random age and food level.
-     *
-     * @param randomAge If true, the fox will have random age and hunger level.
-     * @param field The field currently occupied.
-     * @param location The location within the field.
-     */
-
-    @Override
-    public void initialize(boolean randomAge, Field field, Location location) {
-        super.initialize(randomAge, field, location);
-        this.getPreys().put(Rabbit.class, FoodLevel.SMALLFOOD);
+    {
+        this.getPreys().put(Rabbit.class, FoodLevel.BIGFOOD);
     }
+
 
 
 
@@ -33,7 +19,7 @@ public class Fox extends Animal {
      * @param newAnimal A list to return newly born foxes.
      */
     @Override
-    public void behavior(List<Animal> newAnimal) {
+    public void behavior(List<Entity> newAnimal) {
         this.incrementHunger();
         super.behavior(newAnimal);
     }
@@ -46,7 +32,7 @@ public class Fox extends Animal {
 
     @Override
     protected double getBreedingProp() {
-        return 0.1;
+        return 0.05;
     }
 
     @Override
@@ -56,7 +42,7 @@ public class Fox extends Animal {
 
     @Override
     protected int getBreedingAge() {
-        return 15;
+        return 10;
     }
 
 

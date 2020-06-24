@@ -9,23 +9,23 @@ public abstract class Animal extends Entity {
     private int age = 0;
     // Random generator
     protected static final Random RANDOM = new Random();
-    private Map<Class, FoodLevel> preys = new HashMap<>();
+    private final Map<Class, FoodLevel> preys = new HashMap<>();
     private int foodLevel;
 
     public void initialize(boolean randomAge, Field field, Location location) {
-        super.initialize(field, location);
+        super.initialize(randomAge,field, location);
         foodLevel = RANDOM.nextInt(FoodLevel.BIGFOOD.getFoodLevel());
         if (randomAge) {
             age = RANDOM.nextInt(getmax_age());
         }
     }
 
-    public void behavior(List<Animal> newAnimals){
+    public void behavior(List<Entity> newEntities){
         incrementAge();
         if (isAlive()) {
-            giveBirth(newAnimals);
+            giveBirth(newEntities);
             // Try to move into a free location.
-            Location newLocation = moveToNewLocation();
+            Location newLocation = this.moveToNewLocation();
             if (newLocation != null) {
                 setLocation(newLocation);
                 field.place(this, newLocation);
@@ -40,11 +40,11 @@ public abstract class Animal extends Entity {
         List<Location> adjacent = field.adjacentLocations(getLocation());
         for (Location where : adjacent) {
             Object animal = field.getObjectAt(where);
-            if (preys.containsKey(animal.getClass())) {
+            if (animal!=null && preys.containsKey(animal.getClass())) {
                 Animal prey = (Animal) animal;
                 if (prey.isAlive()) {
                     prey.setDead();
-                    foodLevel = preys.get(animal.getClass()).getFoodLevel();
+                    foodLevel += preys.get(animal.getClass()).getFoodLevel();
                     return where;
                 }
             }
@@ -67,7 +67,7 @@ public abstract class Animal extends Entity {
     }
 
 
-    private void giveBirth(List<Animal> newAnimals) {
+    private void giveBirth(List<Entity> newAnimals) {
         // New rabbits are born into adjacent locations.
         // Get a list of adjacent free locations.
         List<Location> free = field.getFreeAdjacentLocations(getLocation());

@@ -7,7 +7,6 @@ import io.muic.ooc.fab.Location;
 public class Rabbit extends Animal {
 
 
-
     @Override
     protected Location moveToNewLocation() {
         return field.freeAdjacentLocation(getLocation());
@@ -22,7 +21,7 @@ public class Rabbit extends Animal {
 
     @Override
     protected int getmax_age() {
-        return 40;
+        return 50;
     }
 
     @Override

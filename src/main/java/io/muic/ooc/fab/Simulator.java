@@ -2,6 +2,7 @@ package io.muic.ooc.fab;
 
 
 import io.muic.ooc.fab.LivingThing.Animal;
+import io.muic.ooc.fab.LivingThing.Entity;
 import io.muic.ooc.fab.LivingThing.EntityType;
 import io.muic.ooc.fab.view.SimulatorView;
 import java.util.List;
@@ -17,7 +18,7 @@ public class Simulator {
     private static final int DEFAULT_DEPTH = 80;
 
     // Lists of animals in the field.
-    private List<Animal> animals;
+    private List<Entity> entities;
     // The current state of the field.
     private Field field;
     // The current step of the simulation.
@@ -46,7 +47,7 @@ public class Simulator {
             width = DEFAULT_WIDTH;
         }
 
-        animals = new ArrayList<>();
+        entities = new ArrayList<>();
         field = new Field(depth, width);
 
         // Create a view of the state of each location in the field.
@@ -89,18 +90,18 @@ public class Simulator {
         step++;
 
         // Provide space for newborn Animals.
-        List<Animal> newAnimals = new ArrayList<>();
+        List<Entity> newEntities = new ArrayList<>();
         // Let all animals act.
-        for (Iterator<Animal> it = animals.iterator(); it.hasNext();) {
-            Animal animal = it.next();
-            animal.behavior(newAnimals);
-            if (!animal.isAlive()) {
+        for (Iterator<Entity> it = entities.iterator(); it.hasNext();) {
+            Entity entity = it.next();
+            entity.behavior(newEntities);
+            if (!entity.isAlive()) {
                 it.remove();
             }
         }
 
         // Add the newly born foxes and rabbits to the main lists.
-        animals.addAll(newAnimals);
+        entities.addAll(newEntities);
 
         view.showStatus(step, field);
     }
@@ -110,8 +111,8 @@ public class Simulator {
      */
     public void reset() {
         step = 0;
-        animals.clear();
-        new FieldPopulator().populate(field, animals);
+        entities.clear();
+        new FieldPopulator().populate(field, entities);
 
         // Show the starting state in the view.
         view.showStatus(step, field);

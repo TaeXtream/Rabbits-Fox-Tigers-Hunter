@@ -5,9 +5,11 @@ import io.muic.ooc.fab.Location;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class EntityFactory {
-
+    // Random generator
+    private static final Random RANDOM = new Random();
 
     private static final Map<EntityType, Class> entityClassMap = new HashMap<EntityType, Class>() {{
         EntityType[] entityTypes = EntityType.values();
@@ -16,7 +18,7 @@ public class EntityFactory {
         }
     }};
 
-    public static Entity createEntity(EntityType entityType, Field field , Location location) {
+    public static Entity createEntity(EntityType entityType, Field field, Location location) {
         Class entityClass = entityClassMap.get(entityType);
         return createEntity(entityClass, field, location);
     }
@@ -25,13 +27,16 @@ public class EntityFactory {
         if (entityClass != null){
             try {
                 Entity entity = (Entity) entityClass.newInstance();
-                entity.initialize(field, location);
+                entity.initialize(true, field, location);
                 return entity;
             }
             catch (IllegalAccessException | InstantiationException e) {
                 e.printStackTrace();
             }
         }
-        throw  new IllegalArgumentException("Unknown Entity Type");
+        throw new IllegalArgumentException("Unknown Entity Type");
     }
+
+
+
 }
