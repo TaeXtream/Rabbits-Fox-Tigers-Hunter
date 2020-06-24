@@ -1,26 +1,24 @@
-package io.muic.ooc.fab;
+package io.muic.ooc.fab.LivingThing;
 
-import java.util.List;
-import java.util.Random;
+import io.muic.ooc.fab.Field;
+import io.muic.ooc.fab.Location;
 
-public abstract class Animal {
-    private boolean alive = true;
-    private Location location;
-    // The field occupied.
-    protected Field field;
+import java.util.*;
+
+public abstract class Animal extends Entity {
     private int age = 0;
     // Random generator
     protected static final Random RANDOM = new Random();
+    private Map<Class, FoodLevel> preys = new HashMap<>();
+    private int foodLevel;
 
-    public void initialize(boolean randomAge,Field field, Location location) {
-        this.field = field;
-        setLocation(location);
+    public void initialize(boolean randomAge, Field field, Location location) {
+        super.initialize(field, location);
+        foodLevel = RANDOM.nextInt(FoodLevel.BIGFOOD.getFoodLevel());
         if (randomAge) {
             age = RANDOM.nextInt(getmax_age());
         }
     }
-
-    protected abstract Location moveToNewLocation();
 
     public void behavior(List<Animal> newAnimals){
         incrementAge();
@@ -30,6 +28,7 @@ public abstract class Animal {
             Location newLocation = moveToNewLocation();
             if (newLocation != null) {
                 setLocation(newLocation);
+                field.place(this, newLocation);
             } else {
                 // Overcrowding.
                 setDead();
@@ -37,8 +36,34 @@ public abstract class Animal {
         }
     }
 
+    protected Location findFood() {
+        List<Location> adjacent = field.adjacentLocations(getLocation());
+        for (Location where : adjacent) {
+            Object animal = field.getObjectAt(where);
+            if (preys.containsKey(animal.getClass())) {
+                Animal prey = (Animal) animal;
+                if (prey.isAlive()) {
+                    prey.setDead();
+                    foodLevel = preys.get(animal.getClass()).getFoodLevel();
+                    return where;
+                }
+            }
+        }
+        return null;
+    }
+
+    @Override
+    protected Location moveToNewLocation() {
+        Location newLocation = findFood();
+        if (newLocation == null) {
+            // No food found - try to move to a free location.
+            newLocation = field.freeAdjacentLocation(getLocation());
+        }
+        return newLocation;
+    }
+
     protected Animal breed(Field field, Location location){
-        return AnimalFactory.createAnimal(this.getClass(), field, location);
+        return (Animal) EntityFactory.createEntity(this.getClass(), field, location);
     }
 
 
@@ -54,44 +79,8 @@ public abstract class Animal {
         }
     }
 
-
-    public boolean isAlive() {
-        return alive;
-    }
-
-    /**
-     * Indicate that the rabbit is no longer alive. It is removed from the
-     * field.
-     */
-    protected void setDead() {
-        alive = false;
-        if (location != null) {
-            field.clear(location);
-            location = null;
-            field = null;
-        }
-    }
-
-    /**
-     * Place the rabbit at the new location in the given field.
-     *
-     * @param newLocation The rabbit's new location.
-     */
-    protected void setLocation(Location newLocation) {
-        if (location != null) {
-            field.clear(location);
-        }
-        location = newLocation;
-        field.place(this, newLocation);
-    }
-
-    /**
-     * Return the rabbit's location.
-     *
-     * @return The rabbit's location.
-     */
-    public Location getLocation() {
-        return location;
+    public Map<Class, FoodLevel> getPreys() {
+        return preys;
     }
 
     /**
@@ -101,6 +90,13 @@ public abstract class Animal {
         age++;
         if (age > getmax_age()) {
             setDead();
+        }
+    }
+
+    protected void incrementHunger(){
+        foodLevel--;
+        if (foodLevel <= 0) {
+            this.setDead();
         }
     }
 

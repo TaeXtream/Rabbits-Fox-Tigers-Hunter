@@ -1,5 +1,9 @@
 package io.muic.ooc.fab;
 
+import io.muic.ooc.fab.LivingThing.Animal;
+import io.muic.ooc.fab.LivingThing.EntityFactory;
+import io.muic.ooc.fab.LivingThing.EntityType;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,10 +11,10 @@ import java.util.Random;
 
 public class FieldPopulator {
 
-    private final Map<AnimalType, Double> propbailityMap = new HashMap<AnimalType, Double>() {{
-        AnimalType[] animalTypes = AnimalType.values();
-        for (AnimalType animalType : animalTypes) {
-            put(animalType, animalType.getbreedingProbability());
+    private final Map<EntityType, Double> propbailityMap = new HashMap<EntityType, Double>() {{
+        EntityType[] entityTypes = EntityType.values();
+        for (EntityType entityType : entityTypes) {
+            put(entityType, entityType.getbreedingProbability());
         }
     }};
 
@@ -26,10 +30,10 @@ public class FieldPopulator {
         field.clear();
         for (int row = 0; row < field.getDepth(); row++) {
             for (int col = 0; col < field.getWidth(); col++) {
-                for (Map.Entry<AnimalType, Double> entry: propbailityMap.entrySet()){
+                for (Map.Entry<EntityType, Double> entry: propbailityMap.entrySet()){
                     if (RANDOM.nextDouble() <= entry.getValue()){
                         Location location = new Location(row, col);
-                        Animal animal = AnimalFactory.createAnimal(entry.getKey(), field, location);
+                        Animal animal = EntityFactory.createEntity(entry.getKey(), field, location);
                         animals.add(animal);
                         break;
                     }

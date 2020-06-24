@@ -1,22 +1,23 @@
-package io.muic.ooc.fab;
+package io.muic.ooc.fab.LivingThing;
 
 import java.awt.*;
 
-public enum AnimalType {
+public enum EntityType {
     RABBIT(0.08, Rabbit.class, Color.ORANGE),
     FOX(0.05, Fox.class, Color.BLUE),
     TIGER(0.04, Tiger.class, Color.RED),
-    HUNTER(0.001, Hunter.class, Color.BLACK);
+    HUNTER(0.001, Hunter.class, Color.BLACK)
+    ;
 
     private final double breedingProbability;
 
-    private final Class animalClass;
+    private final Class entityClass;
 
     private final Color color;
 
-    AnimalType(double probability, Class animalClass, Color color){
+    EntityType(double probability, Class entityClass, Color color){
         this.breedingProbability = probability;
-        this.animalClass = animalClass;
+        this.entityClass = entityClass;
         this.color = color;
     }
 
@@ -24,8 +25,8 @@ public enum AnimalType {
         return breedingProbability;
     }
 
-    public Class getAnimalClass() {
-        return animalClass;
+    public Class getEntityClass() {
+        return entityClass;
     }
 
     public Color getColor() {

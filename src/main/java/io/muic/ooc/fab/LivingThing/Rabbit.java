@@ -1,5 +1,8 @@
-package io.muic.ooc.fab;
+package io.muic.ooc.fab.LivingThing;
 
+
+import io.muic.ooc.fab.LivingThing.Animal;
+import io.muic.ooc.fab.Location;
 
 public class Rabbit extends Animal {
 
@@ -9,7 +12,6 @@ public class Rabbit extends Animal {
     protected Location moveToNewLocation() {
         return field.freeAdjacentLocation(getLocation());
     }
-
 
 
     /**

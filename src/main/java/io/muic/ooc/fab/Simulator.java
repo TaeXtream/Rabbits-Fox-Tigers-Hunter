@@ -1,6 +1,8 @@
 package io.muic.ooc.fab;
 
 
+import io.muic.ooc.fab.LivingThing.Animal;
+import io.muic.ooc.fab.LivingThing.EntityType;
 import io.muic.ooc.fab.view.SimulatorView;
 import java.util.List;
 import java.util.ArrayList;
@@ -49,9 +51,9 @@ public class Simulator {
 
         // Create a view of the state of each location in the field.
         view = new SimulatorView(depth, width);
-        AnimalType[] animalTypes = AnimalType.values();
-        for (AnimalType animalType : animalTypes) {
-            view.setColor(animalType.getAnimalClass(), animalType.getColor());
+        EntityType[] entityTypes = EntityType.values();
+        for (EntityType entityType : entityTypes) {
+            view.setColor(entityType.getEntityClass(), entityType.getColor());
         }
 
         // Setup a valid starting point.

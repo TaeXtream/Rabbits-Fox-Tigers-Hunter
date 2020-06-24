@@ -1,4 +1,4 @@
-package io.muic.ooc.fab;
+package io.muic.ooc.fab.LivingThing;
 
 public enum FoodLevel {
 
