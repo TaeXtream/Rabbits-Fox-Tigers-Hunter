@@ -3,8 +3,8 @@ package io.muic.ooc.fab.LivingThing;
 import java.awt.*;
 
 public enum EntityType {
-    RABBIT(0.3, Rabbit.class, Color.ORANGE),
-    FOX(0.015, Fox.class, Color.BLUE),
+    RABBIT(0.4, Rabbit.class, Color.ORANGE),
+    FOX(0.01, Fox.class, Color.BLUE),
     TIGER(0.06, Tiger.class, Color.RED),
     HUNTER(0.005, Hunter.class, Color.BLACK)
     ;
