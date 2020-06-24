@@ -26,7 +26,7 @@ public class Rabbit extends Animal {
 
     @Override
     protected double getBreedingProp() {
-        return 0.15;
+        return 0.3;
     }
 
     @Override

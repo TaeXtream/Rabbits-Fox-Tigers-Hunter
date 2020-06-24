@@ -34,7 +34,7 @@ public class Tiger extends Animal {
 
     @Override
     protected double getBreedingProp() {
-        return 0.009;
+        return 0.01;
     }
 
     @Override
@@ -44,7 +44,7 @@ public class Tiger extends Animal {
 
     @Override
     protected int getBreedingAge() {
-        return 15;
+        return 25;
     }
 
 

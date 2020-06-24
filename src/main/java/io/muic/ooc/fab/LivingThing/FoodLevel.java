@@ -2,8 +2,8 @@ package io.muic.ooc.fab.LivingThing;
 
 public enum FoodLevel {
 
-    SMALLFOOD(4),
-    BIGFOOD(9);
+    SMALLFOOD(5),
+    BIGFOOD(10);
 
     private int foodLevel;
 
