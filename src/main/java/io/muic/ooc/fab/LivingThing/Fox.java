@@ -32,7 +32,7 @@ public class Fox extends Animal {
 
     @Override
     protected double getBreedingProp() {
-        return 0.05;
+        return 0.1;
     }
 
     @Override
